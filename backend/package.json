@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cloudinary": "^1.31.0",
+    "jira.js": "^2.15.9",
+    "swagger-ui-express": "^4.5.0",
+    "twilio": "^3.81.0"
+  }
+}
