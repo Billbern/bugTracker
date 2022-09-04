@@ -5,6 +5,7 @@ const swaggerjsDoc = require('swagger-jsdoc');
 const app = express();
 const port = process.env.PORT || 23556;
 
+// swagger configuration
 const swaggerOptions = {
     definition: {
         info : {
@@ -24,8 +25,6 @@ const swaggerDocs = swaggerjsDoc(swaggerOptions);
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-
-
 // routes
 const routes = {
     clients: require('./routes/client-route'),
@@ -33,8 +32,6 @@ const routes = {
 }
 app.use('/api/v1/issues', routes.issues)
 app.use('/api/v1/client', routes.clients)
-
-
 
 app.listen(port, () => {
     console.log("Server is running on\n\nhttps://localhost:23556");
