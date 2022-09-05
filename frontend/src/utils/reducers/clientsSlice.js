@@ -15,16 +15,10 @@ export const clientsSlice = createSlice({
                 archived: false
             }
             state.push(newClient);
-        },
-        toggleArchive: (state, action)=>{
-            const client = state.find(todo => todo.id === action.payload)
-            if(client){
-                client.archived = !client.archived
-            }
         }
     }
 })
 
-export const { addClient, toggleArchive } = clientsSlice.actions;
+export const { addClient } = clientsSlice.actions;
 
 export default clientsSlice.reducer;
