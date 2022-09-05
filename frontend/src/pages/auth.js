@@ -10,7 +10,7 @@ export default class Authentication extends React.Component{
                         <div style={{ paddingTop: '192px' }} className="h-100 w-100 d-flex justify-content-center">
                             <form  className="form w-75">
                                 <div className="form-group mb-5">
-                                    <h1 className="text-center">Login</h1>
+                                    <h1 style={{ color: "#172B4D" }} className="text-center">Login</h1>
                                 </div>
                                 <div className="form-group mb-3">
                                     <input className="form-control" type="text" name="username" id="" placeholder="username" required/>
