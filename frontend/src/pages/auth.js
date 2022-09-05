@@ -1,26 +1,32 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 
 export default class Authentication extends React.Component{
     render(){
         return(
-            <div className="container h-100">
-                <div style={{ paddingTop: '192px' }} className="h-100 d-flex justify-content-center">
-                    <form className="form">
-                        <div className="form-group">
-                            <h3 className="text-center">Login</h3>
+            <div className="container-fluid h-100">
+                <div className="h-100 d-flex justify-content-between">
+                    <div className="h-100 w-25">
+                        <div style={{ paddingTop: '192px' }} className="h-100 w-100 d-flex justify-content-center">
+                            <form  className="form w-75">
+                                <div className="form-group mb-5">
+                                    <h1 className="text-center">Login</h1>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <input className="form-control" type="text" name="username" id="" placeholder="username" required/>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <input className="form-control" type="password" name="userpass" id="" placeholder="password" required/>
+                                </div>
+                                <div className="form-group text-center mt-5">
+                                    <input className="form-control btn btn-primary py-2 text-white " type="submit" value="login" />
+                                </div>
+                            </form>
                         </div>
-                        <div className="form-group">
-                            <input className="form-control" type="text" name="username" id="" />
-                        </div>
-                        <div className="form-group">
-                            <input className="form-control" type="password" name="userpass" id="" />
-                        </div>
-                        <div className="form-group text-center">
-                            <input className="btn btn-primary py-2 px-5 text-white" type="submit" value="login" />
-                        </div>
-                    </form>
+                    </div>
+                    <div className="h-100 w-75">
+                        <img className="w-auto h-100" src={require('../assets/bg_auth.png')} alt="tracking" />
+                    </div>
                 </div>
             </div>
         );
