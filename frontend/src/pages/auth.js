@@ -4,7 +4,7 @@ import React from "react";
 export default class Authentication extends React.Component{
     render(){
         return(
-            <div className="container-fluid h-100">
+            <div className="h-100">
                 <div className="h-100 d-flex justify-content-between">
                     <div className="h-100 w-25">
                         <div style={{ paddingTop: '192px' }} className="h-100 w-100 d-flex justify-content-center">
@@ -19,13 +19,13 @@ export default class Authentication extends React.Component{
                                     <input className="form-control" type="password" name="userpass" id="" placeholder="password" required/>
                                 </div>
                                 <div className="form-group text-center mt-5">
-                                    <input className="form-control btn btn-primary py-2 text-white " type="submit" value="login" />
+                                    <input className="form-control btn btn-primary btn-lg text-white " type="submit" value="login" />
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div className="h-100 w-75">
-                        <img className="w-auto h-100" src={require('../assets/bg_auth.png')} alt="tracking" />
+                    <div style={ { overflow: "hidden" } } className="h-100 w-75">
+                        <img className="w-100 h-auto" src={require('../assets/bg_auth.png')} alt="tracking" />
                     </div>
                 </div>
             </div>
