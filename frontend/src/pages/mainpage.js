@@ -8,7 +8,9 @@ export default class Page extends React.Component{
     render(){
         return(
             <div className="h-100">
+                {/* <Authentication/> */}
                 <ClientPage/>
+                {/* <AdminPage/> */}
             </div>
         );
     }
