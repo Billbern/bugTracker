@@ -1,24 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export const userSlice = createSlice({
-    name: 'issues',
-    initialState : {},
+export const usersSlice = createSlice({
+    name: 'users',
+    initialState : {userType: "", loggedIn: false, userID: ""},
     reducers: {
-        addIssue: (state, action) =>{
-            const newIssue = {
-                id: '',
-                name: '',
-                email: action.payload.email,
-                organisation: '',
-                issues: action.payload.issues,
-                archived: false
-            }
-            state.push(newClient);
+        logUser: (state, action) =>{
+            
         }
     }
 })
 
-export const { addClient, toggleArchive } = userSlice.actions;
+export const { logUser } = usersSlice.actions;
 
-export default userSlice.reducer;
+export default usersSlice.reducer;

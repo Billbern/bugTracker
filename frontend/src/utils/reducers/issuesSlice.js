@@ -3,28 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const issuesSlice = createSlice({
     name: 'issues',
-    initialState : [],
+    initialState : { data: [], formOn: false},
     reducers: {
         addIssue: (state, action) =>{
             const newIssue = {
                 id: '',
-                name: '',
-                email: action.payload.email,
-                organisation: '',
-                issues: action.payload.issues,
-                archived: false
+                title: action.payload.title,
+                description: action.payload.description,
+                screenshot: action.payload.screenshot,
+                reporter: action.payload.reporter,
             }
-            state.push(newClient);
+            state.issues.push(newIssue);
         },
-        toggleArchive: (state, action)=>{
-            const client = state.find(todo => todo.id === action.payload)
-            if(client){
-                client.archived = !client.archived
-            }
+        toggleFormOn: (state, action)=>{
+            state.formOn = !state.formOn
         }
     }
 })
 
-export const { addClient, toggleArchive } = issuesSlice.actions;
+export const { addIssue, toggleFormOn } = issuesSlice.actions;
 
 export default issuesSlice.reducer;
