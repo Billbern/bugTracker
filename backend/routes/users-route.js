@@ -7,11 +7,13 @@ const generateAccessToken = require("../utils/token-utils");
 
 /** 
 * @swagger
-* /auth:
+* /auth/login:
 *   post:
-*       description: authenticate user
+*       description: 
+*           create access token for accessing other routes.
 *       response:
 *           '200': good response
+*           '400': username or password incorrect
 *
 */
 route.post("/login", async(req, res) => {
@@ -37,6 +39,19 @@ route.post("/login", async(req, res) => {
     }
 })
 
+
+/** 
+* @swagger
+* /auth/register:
+*   post:
+*       description: 
+*           create users who can access the platform
+*       response:
+*           '200': good response
+*           '400': username or password incorrect
+*           '500': server error
+*
+*/
 route.post("/register", async (req, res) => {
     if(req.body.username && req.body.userpass && req.body.usertype){
         const verifyuser = await User.findOne({"name": req.body.username});
