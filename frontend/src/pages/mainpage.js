@@ -12,14 +12,14 @@ class Page extends React.Component{
     }
     render(){
         return( 
-            this.props.user.loggedIn === false ?
+            this.props.user.loggedIn === true ?
                 <Authentication/>
             :
                 <div className="h-100">
                     <div className="d-flex justify-content-between h-100">
                         <SideBarComponent />
                         {
-                            this.props.user.usertype === "admin" ?
+                            this.props.user.userType === "" ?
                             <AdminPage /> :
                             <ClientPage />
                         }

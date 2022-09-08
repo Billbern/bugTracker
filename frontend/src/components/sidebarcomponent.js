@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 export default function SideBarComponent() {
-    const usertype = useSelector((state)=> state.user.usertype)
+    const usertype = useSelector((state)=> state.user.userType)
     return (
         <div style={{ backgroundColor: "#3b183f", width: "320px" }} className="h-100 d-flex flex-column flex-shrink-0">
             <div>
@@ -18,9 +18,9 @@ export default function SideBarComponent() {
             <div className="pt-3">
                 <div className="">
                     <ul style={{ listStyle: "none" }} className="ps-3 mt-3">
-                        { usertype === "admin" ?
+                        { usertype === "" ?
                             <>
-                                <li>
+                                <li className='mb-3'>
                                     <div style={{ color: "#d9d9d9", backgroundColor: "#cb4e68", borderRadius: "8px 0 0 8px", fontWeight: "500" }} className="d-flex align-items-center py-2 px-3">
                                         <span className="me-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 48 48"><path d="M24.021 0L24 .001 23.979 0C10.737 0 0 10.745 0 24c0 13.254 10.737 24 23.979 24h.042C37.263 48 48 37.254 48 24c.001-13.255-10.736-24-23.979-24zm0 41.13L24 41.127l-.021.001a3.925 3.928 0 110-7.854h.042a3.925 3.928 0 110 7.854zm5.629-29.936c-.257 3.92-2.047 15.578-2.047 15.578 0 1.966-1.61 3.558-3.573 3.558h-.062c-1.963 0-3.572-1.594-3.572-3.558 0 0-1.79-11.658-2.046-15.578-.127-1.962 1.375-5.606 5.62-5.606h.06c4.243 0 5.748 3.644 5.62 5.606z" fill="#d9d9d9" /></svg>
@@ -28,24 +28,24 @@ export default function SideBarComponent() {
                                         <span>Clients</span>
                                     </div>
                                 </li>
-                                <li>
+                                <li className='mb-3'>
                                     <div style={{ color: "#d9d9d9", backgroundColor: "#cb4e68", borderRadius: "8px 0 0 8px", fontWeight: "500" }} className="d-flex align-items-center py-2 px-3">
                                         <span className="me-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 48 48"><path d="M24.021 0L24 .001 23.979 0C10.737 0 0 10.745 0 24c0 13.254 10.737 24 23.979 24h.042C37.263 48 48 37.254 48 24c.001-13.255-10.736-24-23.979-24zm0 41.13L24 41.127l-.021.001a3.925 3.928 0 110-7.854h.042a3.925 3.928 0 110 7.854zm5.629-29.936c-.257 3.92-2.047 15.578-2.047 15.578 0 1.966-1.61 3.558-3.573 3.558h-.062c-1.963 0-3.572-1.594-3.572-3.558 0 0-1.79-11.658-2.046-15.578-.127-1.962 1.375-5.606 5.62-5.606h.06c4.243 0 5.748 3.644 5.62 5.606z" fill="#d9d9d9" /></svg>
                                         </span>
-                                        <span>Issues</span>
+                                        <span>Projects</span>
                                     </div>
                                 </li>
-                            </> : null
+                            </> :
+                            <li className='mb-3'>
+                                <div style={{ color: "#d9d9d9", backgroundColor: "#cb4e68", borderRadius: "8px 0 0 8px", fontWeight: "500" }} className="d-flex align-items-center py-2 px-3">
+                                    <span className="me-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 48 48"><path d="M24.021 0L24 .001 23.979 0C10.737 0 0 10.745 0 24c0 13.254 10.737 24 23.979 24h.042C37.263 48 48 37.254 48 24c.001-13.255-10.736-24-23.979-24zm0 41.13L24 41.127l-.021.001a3.925 3.928 0 110-7.854h.042a3.925 3.928 0 110 7.854zm5.629-29.936c-.257 3.92-2.047 15.578-2.047 15.578 0 1.966-1.61 3.558-3.573 3.558h-.062c-1.963 0-3.572-1.594-3.572-3.558 0 0-1.79-11.658-2.046-15.578-.127-1.962 1.375-5.606 5.62-5.606h.06c4.243 0 5.748 3.644 5.62 5.606z" fill="#d9d9d9" /></svg>
+                                    </span>
+                                    <span>Issues</span>
+                                </div>
+                            </li>
                         }
-                        <li>
-                            <div style={{ color: "#d9d9d9", backgroundColor: "#cb4e68", borderRadius: "8px 0 0 8px", fontWeight: "500" }} className="d-flex align-items-center py-2 px-3">
-                                <span className="me-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 48 48"><path d="M24.021 0L24 .001 23.979 0C10.737 0 0 10.745 0 24c0 13.254 10.737 24 23.979 24h.042C37.263 48 48 37.254 48 24c.001-13.255-10.736-24-23.979-24zm0 41.13L24 41.127l-.021.001a3.925 3.928 0 110-7.854h.042a3.925 3.928 0 110 7.854zm5.629-29.936c-.257 3.92-2.047 15.578-2.047 15.578 0 1.966-1.61 3.558-3.573 3.558h-.062c-1.963 0-3.572-1.594-3.572-3.558 0 0-1.79-11.658-2.046-15.578-.127-1.962 1.375-5.606 5.62-5.606h.06c4.243 0 5.748 3.644 5.62 5.606z" fill="#d9d9d9" /></svg>
-                                </span>
-                                <span>Issues</span>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>

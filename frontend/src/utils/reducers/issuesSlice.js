@@ -17,10 +17,13 @@ export const issuesSlice = createSlice({
         },
         toggleFormOn: (state, action)=>{
             state.formOn = !state.formOn
+        },
+        filterIssues: (state, action)=>{
+            
         }
     }
 })
 
-export const { addIssue, toggleFormOn } = issuesSlice.actions;
+export const { addIssue, toggleFormOn, filterIssues } = issuesSlice.actions;
 
 export default issuesSlice.reducer;

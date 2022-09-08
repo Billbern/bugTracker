@@ -6,7 +6,7 @@ const route = express.Router();
 * @swagger
 * /api/v1/issues:
 *   get:
-*       descriptions: get issues from jira and add issues to jira
+*       description: get issues from jira and add issues to jira
 *       response:
 *           '200': good response
 *
