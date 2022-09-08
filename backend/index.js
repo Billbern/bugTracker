@@ -18,9 +18,11 @@ mongoose.connect(process.env.DATABASE_URI,
 )
 
 const db = mongoose.connection;
+const initUser = require("./utils/adduser");
 db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", ()=>{
+db.once("open", async ()=>{
     console.log("connected successfully");
+    await initUser({name: "admin", password: "abcd1234", type: "admin"})
 })
 
 

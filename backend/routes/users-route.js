@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const route = express.Router();
 
 const User = require("../models/users");
+const addUser = require("../utils/adduser");
 const generateAccessToken = require("../utils/token-utils");
 
 /** 
@@ -54,30 +55,7 @@ route.post("/login", async(req, res) => {
 */
 route.post("/register", async (req, res) => {
     if(req.body.username && req.body.userpass && req.body.usertype){
-        const verifyuser = await User.findOne({"name": req.body.username});
-
-        if(!verifyuser){
-            try {
-                const salt = await bcrypt.genSalt(10)
-                const passhash = await bcrypt.hash(req.body.userpass, salt);
-                if (passhash){
-                    const newUser = new User({name: req.body.username, password: passhash, usertype: req.body.usertype})
-                    await newUser.save()
-                    res.status(200).json({
-                        "message": "successful"
-                    })
-                }
-            } catch (err) {
-                console.log(err);
-                res.status(500).json({
-                    "message": "server error"
-                })
-            }
-        }else{
-            res.status(400).json({
-                "message": "user already exists"
-            })
-        }
+        await addUser({name: req.body.username, password: req.body.password, type: req.body.type }, res);
     }
 })
 
