@@ -6,7 +6,9 @@ export const usersSlice = createSlice({
     initialState : {userType: "", loggedIn: false, userID: ""},
     reducers: {
         logUser: (state, action) =>{
-            
+            state.userType = action.payload.usertype;
+            state.userID = action.payload.userId;
+            state.loggedIn = !state.loggedIn;
         }
     }
 })

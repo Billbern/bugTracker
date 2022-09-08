@@ -1,22 +1,69 @@
 import React from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { logUser } from "../utils/reducers/usersSlice";
 
 
-export default class Authentication extends React.Component{
+class Authentication extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            username: "",
+            userpass: ""
+        }
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
+    }
+
+    handleOnChange(e){
+        if (e.target.name === "username"){
+            this.setState({
+                ...this.state,
+                username: e.target.value
+            })
+        }else if (e.target.name === "userpass"){
+            this.setState({
+                ...this.state,
+                userpass: e.target.value
+            })
+        }
+    }
+    
+    async handleFormSubmit(e){
+        e.preventDefault();
+        if(this.state.username && this.state.userpass){
+            const data = {
+                "username": this.state.username, 
+                "userpass": this.state.userpass
+            }
+            const loginRequest = await axios.post("http://127.0.0.1:23556/auth/login", data)
+
+            if(loginRequest.status === 200){
+                const data = await loginRequest.data;
+                localStorage.setItem("user", JSON.stringify({usertype: data.user.usertype, userId: data.user._id}));
+                this.props.logUser({usertype: data.user.usertype, userId: data.user._id})
+                document.cookie = `accesstoken=${data.accessToken}; max-age=14400; SameSite=Lax; Secure`;
+            }
+        }
+    
+    }
+
     render(){
         return(
             <div className="h-100">
                 <div className="h-100 d-flex justify-content-between">
                     <div className="h-100 w-25">
                         <div style={{ paddingTop: '192px' }} className="h-100 w-100 d-flex justify-content-center">
-                            <form  className="form w-75">
+                            <form  className="form w-75" onSubmit={(e)=> this.handleFormSubmit(e)}>
                                 <div className="form-group mb-5">
                                     <h1 style={{ color: "#172B4D" }} className="text-center">Login</h1>
                                 </div>
                                 <div className="form-group mb-3">
-                                    <input className="form-control" type="text" name="username" id="" placeholder="username" required/>
+                                    <input className="form-control" type="text" name="username" id="" placeholder="username" onChange={(e)=> this.handleOnChange(e)} value={this.state.username} required/>
                                 </div>
                                 <div className="form-group mb-3">
-                                    <input className="form-control" type="password" name="userpass" id="" placeholder="password" required/>
+                                    <input className="form-control" type="password" name="userpass" id="" placeholder="password" onChange={(e)=> this.handleOnChange(e)} value={this.state.userpass} required/>
                                 </div>
                                 <div className="form-group text-center mt-5">
                                     <input className="form-control btn btn-primary btn-lg text-white " type="submit" value="login" />
@@ -32,3 +79,11 @@ export default class Authentication extends React.Component{
         );
     }
 }
+
+const mapDispatch = dispatch =>{
+    return {
+        logUser: (data)=> dispatch(logUser(data))
+    }
+}
+
+export default connect(null, mapDispatch)(Authentication)

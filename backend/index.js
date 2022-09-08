@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require("mongoose");
 const swaggerUi = require('swagger-ui-express');
 const swaggerjsDoc = require('swagger-jsdoc');
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 23556;
@@ -40,7 +41,10 @@ const swaggerOptions = {
 }
 const swaggerDocs = swaggerjsDoc(swaggerOptions);
 
+// use middlewares
 app.use(express.json())
+app.use(cors());
+
 // serve authentication and api routes
 const routes = {
     clients: require('./routes/client-route'),
