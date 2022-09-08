@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
   usertype: {
     type: String,
     required: true,
+    enum: ["admin", "client"],
   },
   firstlogin:{
     type: Boolean,
