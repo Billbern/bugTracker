@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import NewClientForm from "./newclientformcomponent";
 
 import ToolBarComponent from "./toolbarcomponent";
 
 
 export default function ClientDisplay() {
 
+    const [client, setClient] = useState(false);
+
+    function  handleNewClient( ){
+        setClient(!client)
+    }
+
     return (
         <div style={{ position: "relative", height: "calc( 100% - 64px )", overflow: "hidden" }} className="w-100 d-flex flex-column">
-            <ToolBarComponent />
+            <ToolBarComponent setClient={handleNewClient} />
             <div className="w-100 px-3">
                 <table className="w-100">
                     <thead className="w-100">
@@ -24,7 +31,7 @@ export default function ClientDisplay() {
                     </tbody>
                 </table>
             </div>
-
+            { client === true ? <NewClientForm setClient={ handleNewClient } /> : null }
         </div>
     )
 }

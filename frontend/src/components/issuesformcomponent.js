@@ -1,7 +1,32 @@
+import { useState } from "react"
 
 
 export default function IssueForm({setComplain}) {
     
+    const [data, setData] = useState({title: "", description: "", screenshot: ""})
+    
+    function handleSubmission(e){
+        e.preventDefault();
+    }
+
+    function handleChange(e){
+        if(e.target.name === "issue_title"){
+            setData({
+                ...data,
+                title: e.target.value
+            })
+        }else if (e.target.name === "issue_descr"){
+            setData({
+                ...data,
+                description: e.target.value
+            })
+        }else if (e.target.name === "screenshot"){
+            setData({
+                ...data,
+                screenshot: e.target.value
+            })
+        }
+    }
 
     return (
         <div style={{ position: "absolute" }} className="w-100 h-100 p-3">

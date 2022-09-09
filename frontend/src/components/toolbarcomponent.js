@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
+import { getLocation } from "../utils/helperfunctions";
 
-export default function ToolBarComponent({ setComplain }) {
+
+export default function ToolBarComponent({ setComplain, setClient }) {
 
     const usertype = useSelector((state)=> state.user.userType)
 
@@ -12,15 +14,22 @@ export default function ToolBarComponent({ setComplain }) {
                 </span>
             </div>
             <div className="d-flex align-items-center py-1 mt-3">
-                <span className="me-3">
-                    Filter
-                    <span className="ms-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="14" viewBox="0 0 512 512"><path fill="#4c3853" d="M223.217 393.196c18.096 18.096 45.732 18.096 63.861 0l.787-.918 211.251-210.334c17.179-18.096 17.179-45.634 0-63.73-18.096-17.309-45.731-17.309-63.73 0L255.214 299.208 75.826 119.919c-17.178-17.178-45.731-17.178-62.942 0-17.179 17.31-17.179 45.732 0 62.943z" /></svg>
-                    </span>
-                </span>
                 {
                     usertype === "admin" ?
-                        <input type="button" value="Add Client" className="btn px-3" style={{ backgroundColor: "#cb4e68", color: "#fff" }} />
+                        <>        
+                            <span className="me-3">
+                                Filter
+                                <span className="ms-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="14" viewBox="0 0 512 512"><path fill="#4c3853" d="M223.217 393.196c18.096 18.096 45.732 18.096 63.861 0l.787-.918 211.251-210.334c17.179-18.096 17.179-45.634 0-63.73-18.096-17.309-45.731-17.309-63.73 0L255.214 299.208 75.826 119.919c-17.178-17.178-45.731-17.178-62.942 0-17.179 17.31-17.179 45.732 0 62.943z" /></svg>
+                                </span>
+                            </span>
+                            {
+                                getLocation() === "" | getLocation() === "clients" ? 
+                                    <input type="button" value="Add Client" className="btn px-3" style={{ backgroundColor: "#cb4e68", color: "#fff" }} onClick={ ()=>{ setClient() } } />
+                                :
+                                    null
+                            }
+                        </>
                     :
                         <input type="button" value="create" className="btn px-3" style={{ backgroundColor: "#cb4e68", color: "#fff" }} onClick={()=>{ setComplain() }}/>
                 }
