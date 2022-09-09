@@ -1,4 +1,4 @@
-export default function ClientIssues() {
+export default function IssuesDisplay() {
     return (
         <table className="w-100">
             <thead className="w-100">

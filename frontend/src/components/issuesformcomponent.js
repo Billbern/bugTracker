@@ -1,10 +1,7 @@
-import { useDispatch } from 'react-redux'
-import { toggleFormOn } from "../utils/reducers/issuesSlice";
 
 
-export default function IssueForm() {
+export default function IssueForm({setComplain}) {
     
-    const dispatch = useDispatch();
 
     return (
         <div style={{ position: "absolute" }} className="w-100 h-100 p-3">
@@ -26,7 +23,7 @@ export default function IssueForm() {
                                 <input type="file" name="screenshot" id="screenshot" />
                             </div>
                             <div className="form-group mt-3 d-flex flex-column gap-3 align-items-end">
-                                <input type="button" value="cancel" className="btn btn-outline-secondary px-5" onClick={()=>{dispatch(toggleFormOn())}} />
+                                <input type="button" value="cancel" className="btn btn-outline-secondary px-5" onClick={ ()=> {setComplain()}}  />
                                 <input type="submit" value="report" className="btn px-5" style={{ backgroundColor: "#cb4e68", color: "#fff" }} />
                             </div>
                         </form>

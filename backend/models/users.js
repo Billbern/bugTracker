@@ -14,6 +14,9 @@ const UserSchema = new mongoose.Schema({
     required: true,
     enum: ["admin", "client"],
   },
+  imgurl: {
+    type: String,
+  },
   firstlogin:{
     type: Boolean,
     default: true,

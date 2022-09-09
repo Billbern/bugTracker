@@ -1,9 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+
 import AdminPage from "./admin";
 import ClientPage from "./client";
 import Authentication from "./auth";
-import SideBarComponent from "../components/sidebarcomponent";
-import { connect } from "react-redux";
 
 
 class Page extends React.Component{
@@ -12,18 +13,20 @@ class Page extends React.Component{
     }
     render(){
         return( 
-            this.props.user.loggedIn === false && !localStorage.getItem("user") ?
+            this.props.user.loggedIn === false && 
+            !document.cookie.split("; ").find(
+                item => item.startsWith("accesstoken")
+            ) ?
                 <Authentication/>
             :
                 <div className="h-100">
-                    <div className="d-flex justify-content-between h-100">
-                        <SideBarComponent />
+                    <BrowserRouter>
                         {
                             this.props.user.userType === "admin" ?
                             <AdminPage /> :
                             <ClientPage />
                         }
-                    </div>
+                    </BrowserRouter>   
                 </div>
         );
     }
