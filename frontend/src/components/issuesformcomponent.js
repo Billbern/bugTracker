@@ -1,12 +1,23 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from 'axios';
+import { uploader } from "../utils/helperfunctions";
 
 
 export default function IssueForm({setComplain}) {
     
-    const [data, setData] = useState({title: "", description: "", screenshot: ""})
-    
-    function handleSubmission(e){
+    const [data, setData] = useState({title: "", description: ""})
+    const [file, setFile] = useState()
+
+    async function handleSubmission(e){
         e.preventDefault();
+        let screenshot = ''
+        console.log(data);
+        if(data.title && data.description){
+            if (file){
+                console.log('am here');
+                await uploader(file)
+            }
+        }
     }
 
     function handleChange(e){
@@ -21,10 +32,7 @@ export default function IssueForm({setComplain}) {
                 description: e.target.value
             })
         }else if (e.target.name === "screenshot"){
-            setData({
-                ...data,
-                screenshot: e.target.value
-            })
+            setFile(e.target.files[0])
         }
     }
 
@@ -34,18 +42,18 @@ export default function IssueForm({setComplain}) {
                 <div className="mx-auto" style={{ position: 'relative', width: "80%", height: "100%", backgroundColor: "#fff", boxShadow: "2px 2px 6px #d9d9d9" }}>
                     <div className="w-100 px-5 py-3">
                         <h4 className="pb-3 ">Report an issue</h4>
-                        <form className="form w-100">
+                        <form className="form w-100" onSubmit={(e)=>{handleSubmission(e)}}>
                             <div className="form-group w-100 mb-3">
                                 <label className="mb-2" htmlFor="#title">Title <span style={{ color: "#cb4e68" }}>*</span></label><br />
-                                <input className="w-50" type="text" name="issue_title" id="title" required />
+                                <input className="w-50" type="text" name="issue_title" id="title" value={data.title} onChange={(e)=> {handleChange(e)}} required />
                             </div>
                             <div className="form-group w-100 mb-3">
                                 <label className="mb-2" htmlFor="#descr">Description <span style={{ color: "#cb4e68" }}>*</span></label><br />
-                                <textarea name="issue_descr" id="descr" cols="102" rows="12" required></textarea>
+                                <textarea name="issue_descr" id="descr" cols="102" rows="12" value={data.description} onChange={(e)=> {handleChange(e)}} required></textarea>
                             </div>
                             <div className="form-group w-100 mb-3">
                                 <label className="mb-2" htmlFor="#screenshot">Add a screenshot</label><br />
-                                <input type="file" name="screenshot" id="screenshot" />
+                                <input type="file" name="screenshot" id="screenshot" onChange={ (e)=> {handleChange(e)} } />
                             </div>
                             <div className="form-group mt-3 d-flex flex-column gap-3 align-items-end">
                                 <input type="button" value="cancel" className="btn btn-outline-secondary px-5" onClick={ ()=> {setComplain()}}  />

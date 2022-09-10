@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.31.0",
     "cors": "^2.8.5",
@@ -8,8 +9,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.4",
     "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.5.0",
-    "twilio": "^3.81.0"
+    "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.2"

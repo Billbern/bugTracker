@@ -5,7 +5,7 @@ export default function IssuesDisplay() {
                 <tr style={{ backgroundColor: "#dfd9e2", color: "#4c3853" }} >
                     <th className="py-2" style={{ width: "10%", paddingLeft: "16px" }}>id</th>
                     <th className="py-2" style={{ width: "20%", textAlign: "center" }}>title</th>
-                    <th className="py-2" style={{ width: "20%", textAlign: "center" }}>picture</th>
+                    <th className="py-2" style={{ width: "20%", textAlign: "center" }}>screenshot</th>
                     <th className="py-2" style={{ width: "30%", textAlign: "center" }}>description</th>
                     <th className="py-2" style={{ width: "20%", textAlign: "right", paddingRight: "16px" }}>actions</th>
                 </tr>

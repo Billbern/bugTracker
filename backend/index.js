@@ -35,7 +35,7 @@ const swaggerOptions = {
             contact: {
                 name: ""
             }, 
-            servers: [`http://localhost:${port}`] 
+            servers: [`http://localhost:${port}`]
         }
     },
     apis: ["./routes/*.js"],
@@ -45,7 +45,12 @@ const swaggerDocs = swaggerjsDoc(swaggerOptions);
 
 // use middlewares
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+        optionsSuccessStatus: 200,
+        allowedHeaders: ['Content-Type', 'Accept', 'X-Requested-With']
+    }));
 
 // serve authentication and api routes
 const routes = {
