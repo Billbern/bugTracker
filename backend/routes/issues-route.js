@@ -31,7 +31,7 @@ route.get("/", (req, res) => {
 *
 */
 route.post("/", (req, res)=>{
-    
+    console.log(req.body);
 })
 
 module.exports = route;

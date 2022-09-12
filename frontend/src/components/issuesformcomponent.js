@@ -1,25 +1,38 @@
 import { useState } from "react";
 import axios from 'axios';
+
 import { uploader } from "../utils/helperfunctions";
 
 
+// handle issues reported by client
 export default function IssueForm({setComplain}) {
     
     const [data, setData] = useState({title: "", description: ""})
     const [file, setFile] = useState()
 
+    // send form data to backend
     async function handleSubmission(e){
         e.preventDefault();
         let screenshot = ''
-        console.log(data);
+        
         if(data.title && data.description){
-            if (file){
-                console.log('am here');
-                await uploader(file)
+            if(file){
+                const uploadFile = await uploader(file);
+                if (uploadFile){
+                    screenshot = uploadFile;
+                }
             }
+
+            const sendIssue = await axios.post('http://127.0.0.1:23556/auth/login', {title: data.title, description: data.description, screenshot: screenshot})
+
+            if (sendIssue.status == 200){
+                setComplain();
+            }
+
         }
     }
 
+    // handle data change in inputs
     function handleChange(e){
         if(e.target.name === "issue_title"){
             setData({
