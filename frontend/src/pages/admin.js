@@ -28,7 +28,7 @@ class AdminPage extends React.Component {
                 <div className="h-100" style={{ backgroundColor: "#f5f6f7", width: "calc( 100% - 320px)" }}>
                     <HeaderComponent />
                     <Routes>
-                        <Route exact path="/" element={ <ClientDisplay/> } />
+                        <Route index element={ <ClientDisplay/> } />
                         <Route path="clients" element={ <ClientDisplay/> } />
                         <Route path="projects" element={ <ProjectDisplay/> } />
                         <Route path="issues" element={ <IssuesDisplay/> } />

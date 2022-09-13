@@ -2,14 +2,17 @@ require("dotenv").config();
 
 const express = require('express');
 const mongoose = require("mongoose");
+const cookie = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerjsDoc = require('swagger-jsdoc');
 const cors = require("cors");
+const verifyToken = require('./utils/token-utils').verifyToken;
 
 const app = express();
 const port = process.env.PORT || 23556;
 
 
+// database configuration and connection
 mongoose.connect(process.env.DATABASE_URI,
     {
         useNewUrlParser: true,
@@ -24,7 +27,6 @@ db.once("open", async ()=>{
     console.log("connected successfully");
     await initUser({name: "admin", password: "abcd1234", type: "admin"})
 })
-
 
 // swagger configuration
 const swaggerOptions = {
@@ -51,6 +53,7 @@ app.use(cors({
         optionsSuccessStatus: 200,
         allowedHeaders: ['Content-Type', 'Accept', 'X-Requested-With']
     }));
+app.use(cookie())
 
 // serve authentication and api routes
 const routes = {
@@ -58,8 +61,8 @@ const routes = {
     issues: require('./routes/issues-route'),
     authentication: require('./routes/users-route')
 }
-app.use('/api/v1/issues', routes.issues)
-app.use('/api/v1/client', routes.clients)
+app.use('/api/v1/issue', verifyToken, routes.issues)
+app.use('/api/v1/client', verifyToken, routes.clients)
 app.use('/auth', routes.authentication)
 
 // serve documentation on initial route

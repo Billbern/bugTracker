@@ -1,10 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 const route = express.Router();
 
 const User = require("../models/users");
 const addUser = require("../utils/adduser");
-const generateAccessToken = require("../utils/token-utils");
+const { verifyToken } = require('../utils/token-utils');
+const { generateAccessToken } = require("../utils/token-utils");
+
 
 /** 
 * @swagger
@@ -25,8 +28,8 @@ route.post("/login", async(req, res) => {
             if(match){
                 const userId = {"userId": user._id.toString()};
                 const accesstoken = generateAccessToken(userId);
+                res.cookie('accesstoken', accesstoken, { sameSite: "Lax", secure: true, domain: '', httpOnly: false, expires: new Date(moment().add(8, 'hours')) })
                 res.json({
-                    'accessToken': accesstoken,
                     'user': user
                 })
             }else{
@@ -57,6 +60,23 @@ route.post("/register", async (req, res) => {
     if(req.body.username && req.body.userpass && req.body.usertype){
         await addUser({name: req.body.username, password: req.body.password, type: req.body.type }, res);
     }
+})
+
+
+/** 
+* @swagger
+* /auth/logout:
+*   get:
+*       description: 
+*           remove authentication cookies and session.
+*       response:
+*           '200': good response
+*           '400': username or password incorrect
+*
+*/
+route.get("/logout", verifyToken,(req, res)=>{
+    res.clearCookie("accesstoken")
+    res.end()
 })
 
 module.exports = route;

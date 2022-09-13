@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { removeUser } from "../utils/reducers/usersSlice";
 
@@ -8,19 +9,23 @@ import { removeUser } from "../utils/reducers/usersSlice";
 export default function HeaderComponent() {
     const [menu, setMenu] = useState(false);
     const dispatch = useDispatch();
+    const locate = useNavigate();
 
     function toggleMenu(){
         return setMenu(!menu);
     }
 
-    function handlelogout(){
-        const cookie = document.cookie.split('; ').find((row) => row.startsWith('accesstoken'));
-        if(cookie){
-            document.cookie = "accesstoken=''; expires=Fri, 31 Dec 1999 23:59:59 GMT; SameSite=None; Secure";
+    async function handlelogout(){
+        const logout = await axios.get("http://127.0.0.1:23556/auth/logout")
+        if(logout.status === 200){
+            const cookie = document.cookie.split('; ').find((row) => row.startsWith('user'));
+            if(cookie){
+                document.cookie = "user=''; expires=Fri, 31 Dec 1999 23:59:59 GMT; SameSite=None; Secure";
+            }
+            localStorage.removeItem("user");
+            dispatch(removeUser);
+            locate('/auth/login');
         }
-        localStorage.removeItem("user");
-        dispatch(removeUser);
-        window.location.reload(false);
     }
 
     return (

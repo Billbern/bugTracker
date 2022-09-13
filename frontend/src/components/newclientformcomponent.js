@@ -1,12 +1,22 @@
 import { useState } from "react";
+import axios from "axios";
 
 
 export default function NewClientForm({setClient}) {
 
     const [data, setData] = useState({name: "", email: "", organisation: ""})
     
-    function handleSubmission(e){
+    async function handleSubmission(e){
         e.preventDefault();
+        const newpass = window.crypto.getRandomValues(new BigUint64Array(1))[0].toString(36)
+        
+        if (data.name && data.email && data.organisation){
+            const formdata  = {client_mail: data.email, client_organ: data.organisation, project: data.project , password: newpass}
+            const newclient = await axios.post('http://127.0.0.1:23556/api/v1/client', formdata)
+            if(newclient.status === 200){
+                setClient();
+            }
+        }
     }
 
     function handleChange(e){

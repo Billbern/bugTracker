@@ -1,33 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { isAuthenticated } from "../utils/helperfunctions";
 
-import AdminPage from "./admin";
-import ClientPage from "./client";
 import Authentication from "./auth";
+import ProtectedPages from "./protectedroute";
 
 
 class Page extends React.Component{
     constructor(props){
         super(props);
     }
+
     render(){
         return( 
-            this.props.user.loggedIn === false && 
-            !document.cookie.split("; ").find(
-                item => item.startsWith("accesstoken")
-            ) ?
-                <Authentication/>
-            :
-                <div className="h-100">
-                    <BrowserRouter>
-                        {
-                            this.props.user.userType === "admin" ?
-                            <AdminPage /> :
-                            <ClientPage />
-                        }
-                    </BrowserRouter>   
-                </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route index path="/" element={ 
+                        isAuthenticated ? 
+                        <Navigate replace to="/dashboard" /> :
+                        <Navigate replace to="/auth/login" /> } 
+                    />
+                    <Route exact path="/auth/login" element={ <Authentication/>} />
+                    <Route path='/dashboard/*' element={ <ProtectedPages/> } />
+                </Routes>    
+            </BrowserRouter>   
         );
     }
 }

@@ -7,8 +7,13 @@ function persistUser(props){
 }
 
 // get the location of the current page
-function getLocation(){
-    const parts = window.location.href.split("/");
+function getLocation(criteria){
+    let parts;
+    if(criteria){
+        parts = window.location.href.split(criteria);
+    }else{
+        parts = window.location.href.split("/");
+    }
     return parts[parts.length -1]
 }
 
@@ -29,5 +34,24 @@ async function uploader(file){
     return uploadfile;
 }
 
+function isAuthenticated(){
+    return window.localStorage.getItem("user") && document.cookie.split("; ").find(item => item.startsWith("user"));
+}
 
-export { persistUser, getLocation, uploader }; 
+async function fetchData(location){
+
+    let data;
+    
+    try {
+        const fetching = await axios({ url: `http://127.0.0.1:23556/api/v1/${location}`, method: "get"})
+        if (fetching.status === 200){
+            data = await fetching.data
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    return data
+}
+
+
+export { persistUser, getLocation, uploader, fetchData , isAuthenticated }; 
