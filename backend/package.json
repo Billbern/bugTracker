@@ -1,4 +1,6 @@
 {
+  "name": "backend",
+  "version": "0.1.0",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.0.1",
@@ -16,5 +18,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.2"
+  },"scripts": {
+    "start": "node index.js" 
   }
 }
