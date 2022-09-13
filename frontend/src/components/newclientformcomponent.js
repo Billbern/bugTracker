@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { generatePassword } from "../utils/helperfunctions";
 
 
 export default function NewClientForm({setClient}) {
@@ -8,7 +9,7 @@ export default function NewClientForm({setClient}) {
     
     async function handleSubmission(e){
         e.preventDefault();
-        const newpass = window.crypto.getRandomValues(new BigUint64Array(1))[0].toString(36)
+        const newpass = generatePassword()
         
         if (data.name && data.email && data.organisation){
             const formdata  = {client_mail: data.email, client_organ: data.organisation, project: data.project , password: newpass}

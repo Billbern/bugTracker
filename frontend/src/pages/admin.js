@@ -6,7 +6,7 @@ import HeaderComponent from "../components/headercomponent";
 import SideBarComponent from "../components/sidebarcomponent";
 import ClientDisplay from "../components/clientsdisplaycomponent";
 import ProjectDisplay from "../components/projectsdisplaycomponent";
-import { persistUser } from "../utils/helperfunctions";
+import { generatePassword, persistUser } from "../utils/helperfunctions";
 import { logUser } from "../utils/reducers/usersSlice";
 import SettingsComponent from "../components/settingscomponent";
 import IssuesDisplay from "../components/issuesdisplaycomponent";
@@ -19,6 +19,7 @@ class AdminPage extends React.Component {
 
     componentDidMount(){
         persistUser(this.props)
+        console.log(generatePassword());
     }
 
     render() {

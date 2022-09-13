@@ -53,5 +53,18 @@ async function fetchData(location){
     return data
 }
 
+function generatePassword(){
+    let chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let passwordLength = 12;
+    let password = "";
 
-export { persistUser, getLocation, uploader, fetchData , isAuthenticated }; 
+    for (var i = 0; i <= passwordLength; i++) {
+        var randomNumber = Math.floor(Math.random() * chars.length);
+        password += chars.substring(randomNumber, randomNumber +1);
+    }
+    
+    return password;
+}
+
+
+export { persistUser, getLocation, uploader, fetchData , isAuthenticated, generatePassword }; 
